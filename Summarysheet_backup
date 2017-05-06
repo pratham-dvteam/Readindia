@@ -1,0 +1,368 @@
+	        	//Checking, Which camp is going to entered
+				var already_enteredcamp = $('input:checkbox:checked').length;
+
+				//Validation for Camp 1 Entry.
+					if (already_enteredcamp == 0){
+						var err = 1										
+						// debugger;
+					    //Validation 1 for Table 1 - Submission 1 field shouldn't be for Camp 1 entry
+							var ids_empty = [];
+							$('.submission_1').each(function () {
+							    var blank = $.trim(this.value);
+							    if (!blank) {
+							        ids_empty.push(this.id);
+						        	$(this).addClass('errorClass');					        	
+								    $(this).attr('title', 'You can not left this filed Blank');
+								    $(this).css('border-color', 'red');    					        
+							    }; 
+
+							    if (blank) {
+							        ids_empty.push(this.id);
+						        	$(this).addClass('errorClass');
+								    $(this).attr('title', '');
+								    $(this).css('border-color', '');    					        
+							    };
+							});
+
+					    //Validation for Table 4 - Submission 1 field shouldn't be for Camp 1 entry
+							var std3_children_enroll = +$("#id_std3_enroll").val();
+							var std4_children_enroll = +$("#id_std4_enrolled").val();
+							var std5_children_enroll = +$("#id_std5_enrolled").val();
+							var total_std3to5_table4 = std3_children_enroll + std4_children_enroll	+std5_children_enroll
+							var std3_children_t = +$("#id_std3_tested").val();
+							var std4_children_t = +$("#id_std4_tested").val();
+							var std5_children_t = +$("#id_std5_tested").val();	
+							var total_std3to5_table4_t = std3_children_t + std4_children_t	+std5_children_t	
+
+							var mismatch_children_table4 = total_std3to5_table4 - total_std3to5_table4_t;
+
+							if (mismatch_children_table4 != 0) {						
+								$("#id_std3_enrolled").attr('title', 'Number of children Enrolled for calss and Tested is not matching.');
+								$("#id_std4_enrolled").attr('title', 'Number of children Enrolled for calss and Tested is not matching.');
+								$("#id_std5_enrolled").attr('title', 'Number of children Enrolled for calss and Tested is not matching.');
+								$("#id_std3_tested").attr('title', 'Number of children Enrolled for calss and Tested is not matching.');
+								$("#id_std4_tested").attr('title', 'Number of children Enrolled for calss and Tested is not matching.');
+								$("#id_std5_tested").attr('title', 'Number of children Enrolled for calss and Tested is not matching.'); 
+								$("#id_std3_enrolled").css('border-color', 'red'); 
+								$("#id_std4_enrolled").css('border-color', 'red'); 						
+								$("#id_std5_enrolled").css('border-color', 'red'); 
+								$("#id_std3_tested").css('border-color', 'red'); 
+								$("#id_std4_tested").css('border-color', 'red'); 
+								$("#id_std5_tested").css('border-color', 'red'); 
+						    }
+
+							if (mismatch_children_table4 = 0) {						
+								$("#id_std3_enroll").attr('title', '');
+								$("#id_std4_enrolled").attr('title', '');
+								$("#id_std5_enrolled").attr('title', '');
+								$("#id_std3_tested").attr('title', '');
+								$("#id_std4_tested").attr('title', '');
+								$("#id_std5_tested").attr('title', '');
+								$("#id_std3_enroll").css('border-color', ''); 
+								$("#id_std4_enrolled").css('border-color', ''); 
+								$("#id_std5_enrolled").css('border-color', ''); 						
+								$("#id_std3_tested").css('border-color', ''); 
+								$("#id_std4_tested").css('border-color', ''); 
+								$("#id_std5_tested").css('border-color', '')
+						
+						//Validation 2 - (std 3 + std 4 + std 5) should equal to (male + female)
+
+							var std3_children = +$("#id_std3").val();
+							var std4_children = +$("#id_std4").val();
+							var std5_children = +$("#id_std5").val();
+							var total_std3to5 = std3_children + std4_children + std5_children;
+
+							var male_children = +$("#id_childrenMale").val();
+							var female_children = +$("#id_childrenFemale").val();
+		    				var total_mf = male_children + female_children;
+
+							var mismatch_children = total_mf - total_std3to5;
+
+							if (mismatch_children != 0) {						
+								$("#id_childrenMale").attr('title', 'Number of children entered for calss and gender is not matching.');
+								$("#id_childrenFemale").attr('title', 'Number of children entered for calss and gender is not matching.');
+								$("#id_std3").attr('title', 'Number of children entered for calss and gender is not matching.');
+								$("#id_std4").attr('title', 'Number of children entered for calss and gender is not matching.');
+								$("#id_std5").attr('title', 'Number of children entered for calss and gender is not matching.');
+								$("#id_childrenMale").css('border-color', 'red'); 
+								$("#id_childrenFemale").css('border-color', 'red'); 
+								$("#id_std3").css('border-color', 'red'); 						
+								$("#id_std4").css('border-color', 'red'); 
+								$("#id_std5").css('border-color', 'red'); 
+						    }
+
+							if (mismatch_children = 0) {						
+								$("#id_childrenMale").attr('title', '');
+								$("#id_childrenFemale").attr('title', '');
+								$("#id_std3").attr('title', '');
+								$("#id_std4").attr('title', '');
+								$("#id_std5").attr('title', '');
+								$("#id_childrenMale").css('border-color', ''); 
+								$("#id_childrenFemale").css('border-color', ''); 
+								$("#id_std3").css('border-color', ''); 						
+								$("#id_std4").css('border-color', ''); 
+								$("#id_std5").css('border-color', ''); 
+						    }
+
+						//Validation 3 - DISE code shouldn't be more or less than 10 digits.
+					  		if ($("#id_disecode").val().trim().length != 10) {
+								$("#id_disecode").attr('title', 'DISE code should not be more or less than 10 digits.');		  						
+		  						$("#id_disecode").css('border-color', 'red'); 					
+		  					};				
+
+						//Validation 4 - Number of teaching days Range 0 to 10.
+					  		if ($("#id_teachingdays_camp1").val() > 11 ) {
+								$("#id_teachingdays_camp1").attr('title', 'Teaching Days should not be more than 10 digits.');		  						
+		  						$("#id_teachingdays_camp1").css('border-color', 'red'); 					
+		  					}; 				
+
+						//Validation 5 - Number of Meetings in Village Table 2.
+					  		if ($("#id_communityMeetings").val() > 11 ) {
+								$("#id_communityMeetings").attr('title', 'No of Meetings should not be more then no of Visits.');		  						
+		  						$("#id_communityMeetings").css('border-color', 'red'); 					
+		  					};
+						//Validation 6 - Number of Visits Range - 0 to 10 Table 2.
+					  		if ($("#id_noofvisits_camp1").val() > 11 ) {
+								$("#id_noofvisits_camp1").attr('title', 'DISE code should not be more or less than 10 digits.');		  						
+		  						$("#id_noofvisits_camp1").css('border-color', 'red'); 					
+		  					};		
+						//Validation 7 - Volunteer Attendance in Table 3.
+
+					  		if ($("#id_volunteer1_attendance_camp1").val() > 11 ) {
+								$("#id_volunteer1_attendance_camp1").attr('title', 'Volunteer Attendance should not be more No of Camp Days');		  						
+		  						$("#id_volunteer1_attendance_camp1").css('border-color', 'red'); 					
+		  					};	
+					  		if ($("#id_volunteer2_attendance_camp1").val() > 11 ) {
+								$("#id_volunteer2_attendance_camp1").attr('title', 'Volunteer Attendance should not be more No of Camp Days');		  						
+		  						$("#id_volunteer2_attendance_camp1").css('border-color', 'red'); 					
+		  					};
+					  		if ($("#id_volunteer3_attendance_camp1").val() > 11 ) {
+								$("#id_volunteer3_attendance_camp1").attr('title', 'Volunteer Attendance should not be more No of Camp Days');		  						
+		  						$("#id_volunteer3_attendance_camp1").css('border-color', 'red'); 					
+		  					};
+					  		if ($("#id_volunteer4_attendance_camp1").val() > 11 ) {
+								$("#id_volunteer4_attendance_camp1").attr('title', 'Volunteer Attendance should not be more No of Camp Days');		  						
+		  						$("#id_volunteer4_attendance_camp1").css('border-color', 'red'); 					
+		  					};
+					  		if ($("#id_volunteer5_attendance_camp1").val() > 11 ) {
+								$("#id_volunteer5_attendance_camp1").attr('title', 'Volunteer Attendance should not be more No of Camp Days');		  						
+		  						$("#id_volunteer5_attendance_camp1").css('border-color', 'red'); 					
+		  					};
+					  		if ($("#id_volunteer6_attendance_camp1").val() > 11 ) {
+								$("#id_volunteer6_attendance_camp1").attr('title', 'Volunteer Attendance should not be more No of Camp Days');		  						
+		  						$("#id_volunteer6_attendance_camp1").css('border-color', 'red'); 					
+		  					};	
+					  		if ($("#id_volunteer7_attendance_camp1").val() > 11 ) {
+								$("#id_volunteer7_attendance_camp1").attr('title', 'Volunteer Attendance should not be more No of Camp Days');		  						
+		  						$("#id_volunteer7_attendance_camp1").css('border-color', 'red'); 					
+		  					};
+					  		if ($("#id_volunteer8_attendance_camp1").val() > 11 ) {
+								$("#id_volunteer8_attendance_camp1").attr('title', 'Volunteer Attendance should not be more No of Camp Days');		  						
+		  						$("#id_volunteer8_attendance_camp1").css('border-color', 'red'); 					
+		  					};
+					  		if ($("#id_volunteer9_attendance_camp1").val() > 11 ) {
+								$("#id_volunteer9_attendance_camp1").attr('title', 'Volunteer Attendance should not be more No of Camp Days');		  						
+		  						$("#id_volunteer9_attendance_camp1").css('border-color', 'red'); 					
+		  					};
+					  		if ($("#id_volunteer10_attendance_camp1").val() > 11 ) {
+								$("#id_volunteer10_attendance_camp1").attr('title', 'Volunteer Attendance should not be more No of Camp Days');		  						
+		  						$("#id_volunteer10_attendance_camp1").css('border-color', 'red'); 					
+		  					};		  							  							  							  							  								  							
+		  				//Validation 8 - Number of enrolled children table 4 (std 3 + std 4 + std 5) should be equal to total children
+
+		  					debugger;
+							var std3_children_enroll = +$("#id_std3_enrolled").val();
+							var std4_children_enroll = +$("#id_std4_enrolled").val();
+							var std5_children_enroll = +$("#id_std5_enrolled").val();
+
+							var total_std3to5_enroll = std3_children_enroll + std4_children_enroll + std5_children_enroll;
+
+							var mismatch_children1 = total_mf - total_std3to5_enroll;
+							var error1 =  'sdfasdfasdfasd'
+							
+							var mismatch_children2 = total_std3to5_enroll - total_std3to5;
+
+							if (mismatch_children1 != mismatch_children2) {
+								$("#id_childrenMale").attr('title', 'Number of children entered for calss and gender is not matching.');
+								$("#id_childrenFemale").attr('title', 'Number of children entered for calss and gender is not matching.');
+								$("#id_std3").attr('title', 'Number of children entered for calss and gender is not matching.');
+								$("#id_std4").attr('title', 'Number of children entered for calss and gender is not matching.');
+								$("#id_std5").attr('title', 'Number of children entered for calss and gender is not matching.');
+								$("#id_std3_enrolled").attr('title', 'Number of children entered for calss and gender is not matching.');
+								$("#id_std4_enrolled").attr('title', 'Number of children entered for calss and gender is not matching.');
+								$("#id_std5_enrolled").attr('title', error1);
+
+								$("#id_childrenMale").css('border-color', 'red'); 
+								$("#id_childrenFemale").css('border-color', 'red'); 
+								$("#id_std3").css('border-color', 'red'); 						
+								$("#id_std4").css('border-color', 'red'); 
+								$("#id_std5").css('border-color', 'red'); 
+								$("#id_std3_enrolled").css('border-color', 'red'); 						
+								$("#id_std4_enrolled").css('border-color', 'red'); 
+								$("#id_std5_enrolled").css('border-color', 'red'); 
+							}
+
+							if (mismatch_children1 == mismatch_children2) {
+
+								$("#id_childrenMale").attr('title', '');
+								$("#id_childrenFemale").attr('title', '');
+								$("#id_std3").attr('title', '');
+								$("#id_std4").attr('title', '');
+								$("#id_std5").attr('title', '');
+								$("#id_std3_enrolled").attr('title', '');
+								$("#id_std4_enrolled").attr('title', '');
+								$("#id_std5_enrolled").attr('title', '');
+
+								$("#id_childrenMale").css('border-color', ''); 
+								$("#id_childrenFemale").css('border-color', ''); 
+								$("#id_std3").css('border-color', ''); 						
+								$("#id_std4").css('border-color', ''); 
+								$("#id_std5").css('border-color', ''); 
+								$("#id_std3_enrolled").css('border-color', ''); 						
+								$("#id_std4_enrolled").css('border-color', ''); 
+								$("#id_std5_enrolled").css('border-color', ''); 
+							}
+					};
+	
+				// Validation for Camp 2 Entry.
+				if (entered_submissionno == 1 )
+				//if (already_enteredcamp == 1 && ($("#id_submission2").prop('checked') == false)){					
+					var err = 1										
+				    
+				    //Submission 2 field shouldn't be.
+					var ids_empty = [];
+					$('.submission_2').each(function () {
+					    var blank = $.trim(this.value);
+					    if (!blank) {
+					        ids_empty.push(this.id);
+				        	$(this).addClass('errorClass');					        	
+						    $(this).attr('title', 'You can not left this filed Blank');
+						    $(this).css('border-color', 'red');    					        
+					    }; 
+
+					    if (blank) {
+					        ids_empty.push(this.id);
+				        	$(this).addClass('errorClass');
+						    $(this).attr('title', '');
+						    $(this).css('border-color', '');    					        
+					    };
+					});
+				};
+
+				
+	debugger;
+
+
+						//Validation 4 - Number of teaching days Range 0 to 10.
+					  		if ($("#id_teachingdays_Camp2").val() > 10 ) {
+								$("#id_teachingdays_Camp2").attr('title', 'Teaching Days should not be more than 10 digits.');		  						
+		  						$("#id_teachingdays_Camp2").css('border-color', 'red'); 					
+		  					}; 				
+
+						//Validation 5 - Number of Meetings in Village Table 2.
+					  		if ($("#id_communityMeetings").val() > 10 ) {
+								$("#id_communityMeetings").attr('title', 'No of Meetings should not be more then no of Visits.');		  						
+		  						$("#id_communityMeetings").css('border-color', 'red'); 					
+		  					};
+						//Validation 6 - Number of Visits Range - 0 to 10 Table 2.
+					  		if ($("#id_noofvisits_Camp2").val() > 10 ) {
+								$("#id_noofvisits_Camp2").attr('title', 'No of Visit should not be more then 10');		  						
+		  						$("#id_noofvisits_Camp2").css('border-color', 'red'); 					
+		  					};		
+						//Validation 7 - Volunteer Attendance in Table 3.
+
+					  		if ($("#id_volunteer1_attendance_Camp2").val() > 10 ) {
+								$("#id_volunteer1_attendance_Camp2").attr('title', 'Volunteer Attendance should not be more No of Camp Days');		  						
+		  						$("#id_volunteer1_attendance_Camp2").css('border-color', 'red'); 					
+		  					};	
+					  		if ($("#id_volunteer2_attendance_Camp2").val() > 10 ) {
+								$("#id_volunteer2_attendance_Camp2").attr('title', 'Volunteer Attendance should not be more No of Camp Days');		  						
+		  						$("#id_volunteer2_attendance_Camp2").css('border-color', 'red'); 					
+		  					};
+					  		if ($("#id_volunteer3_attendance_Camp2").val() > 11 ) {
+								$("#id_volunteer3_attendance_Camp2").attr('title', 'Volunteer Attendance should not be more No of Camp Days');		  						
+		  						$("#id_volunteer3_attendance_Camp2").css('border-color', 'red'); 					
+		  					};
+					  		if ($("#id_volunteer4_attendance_Camp2").val() > 11 ) {
+								$("#id_volunteer4_attendance_Camp2").attr('title', 'Volunteer Attendance should not be more No of Camp Days');		  						
+		  						$("#id_volunteer4_attendance_Camp2").css('border-color', 'red'); 					
+		  					};
+					  		if ($("#id_volunteer5_attendance_Camp2").val() > 11 ) {
+								$("#id_volunteer5_attendance_Camp2").attr('title', 'Volunteer Attendance should not be more No of Camp Days');		  						
+		  						$("#id_volunteer5_attendance_Camp2").css('border-color', 'red'); 					
+		  					};
+					  		if ($("#id_volunteer6_attendance_Camp2").val() > 11 ) {
+								$("#id_volunteer6_attendance_Camp2").attr('title', 'Volunteer Attendance should not be more No of Camp Days');		  						
+		  						$("#id_volunteer6_attendance_Camp2").css('border-color', 'red'); 					
+		  					};	
+					  		if ($("#id_volunteer7_attendance_Camp2").val() > 11 ) {
+								$("#id_volunteer7_attendance_Camp2").attr('title', 'Volunteer Attendance should not be more No of Camp Days');		  						
+		  						$("#id_volunteer7_attendance_Camp2").css('border-color', 'red'); 					
+		  					};
+					  		if ($("#id_volunteer8_attendance_Camp2").val() > 11 ) {
+								$("#id_volunteer8_attendance_Camp2").attr('title', 'Volunteer Attendance should not be more No of Camp Days');		  						
+		  						$("#id_volunteer8_attendance_Camp2").css('border-color', 'red'); 					
+		  					};
+					  		if ($("#id_volunteer9_attendance_Camp2").val() > 11 ) {
+								$("#id_volunteer9_attendance_Camp2").attr('title', 'Volunteer Attendance should not be more No of Camp Days');		  						
+		  						$("#id_volunteer9_attendance_Camp2").css('border-color', 'red'); 					
+		  					};
+					  		if ($("#id_volunteer10_attendance_Camp2").val() > 11 ) {
+								$("#id_volunteer10_attendance_Camp2").attr('title', 'Volunteer Attendance should not be more No of Camp Days');		  						
+		  						$("#id_volunteer10_attendance_Camp2").css('border-color', 'red'); 					
+		  					};
+
+
+
+
+
+
+				// Validation for Camp 3 Entry.
+				if (already_enteredcamp == 2 && ($("#id_submission3").prop('checked') == false)){					
+					var err = 1										
+				    
+				    //Validation 1 - Submission 3 field shouldn't be.
+					var ids_empty = [];
+					$('.submission_3').each(function () {
+					    var blank = $.trim(this.value);
+					    if (!blank) {
+					        ids_empty.push(this.id);
+				        	$(this).addClass('errorClass');					        	
+						    $(this).attr('title', 'You can not left this filed Blank');
+						    $(this).css('border-color', 'red');    					        
+					    }; 
+
+					    if (blank) {
+					        ids_empty.push(this.id);
+				        	$(this).addClass('errorClass');
+						    $(this).attr('title', '');
+						    $(this).css('border-color', '');    					        
+					    };
+					});
+				};
+
+				// Validation for Camp 4 Entry.
+				if (already_enteredcamp == 3 && ($("#id_submission4").prop('checked') == false)){					var err = 1										
+				    
+				    //Validation 1 - Submission 4 field shouldn't be.
+					var ids_empty = [];
+					$('.submission_4').each(function () {
+					    var blank = $.trim(this.value);
+					    if (!blank) {
+					        ids_empty.push(this.id);
+				        	$(this).addClass('errorClass');					        	
+						    $(this).attr('title', 'You can not left this filed Blank');
+						    $(this).css('border-color', 'red');    					        
+					    }; 
+
+					    if (blank) {
+					        ids_empty.push(this.id);
+				        	$(this).addClass('errorClass');
+						    $(this).attr('title', '');
+						    $(this).css('border-color', '');    					        
+					    };
+					});
+				};
+
+			
+return;
